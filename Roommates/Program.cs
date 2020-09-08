@@ -41,6 +41,7 @@ namespace Roommates
             {
                 Console.WriteLine($"{roommate.Id} {roommate.Firstname} {roommate.Lastname} {roommate.RentPortion} {roommate.MoveInDate}");
             }
+            Console.WriteLine("-------------------------------");
 
             /////////////////////////////////////////
             /* Gets a single Room via Id
@@ -52,6 +53,11 @@ namespace Roommates
             Console.WriteLine($"{singleRoom.Id} {singleRoom.Name} {singleRoom.MaxOccupancy}");
             */
 
+            Console.WriteLine("Getting Roommate with Id 2");
+
+            Roommate singleRoommate = roommateRepo.GetById(2);
+
+            Console.WriteLine($"{singleRoommate.Id} {singleRoommate.Firstname} {singleRoommate.Lastname} {singleRoommate.RentPortion} {singleRoommate.MoveInDate}");
 
             /////////////////////////////////////////
             /* Generates a new room and adds it to the database

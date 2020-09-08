@@ -59,5 +59,50 @@ namespace Roommates.Repositories
             }
 
         }
+
+        public Roommate GetAllWithRoom()
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+
+                }
+            }
+        }
+        public Roommate GetById(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Firstname, Lastname, RentPortion, MoveInDate, RoomId FROM Roommate WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    Roommate roommate = null;
+
+                    if (reader.Read())
+                    {
+                        roommate = new Roommate
+                        {
+                            Id = id,
+                            Firstname = reader.GetString(reader.GetOrdinal("Firstname")),
+                            Lastname = reader.GetString(reader.GetOrdinal("Lastname")),
+                            RentPortion = reader.GetInt32(reader.GetOrdinal("RentPortion")),
+                            MoveInDate = reader.GetDateTime(reader.GetOrdinal("MoveInDate")),
+                            Room = null
+                        };
+                    }
+
+                    reader.Close();
+
+                    return roommate;
+                }
+            }
+        }
+            
     }
 }
