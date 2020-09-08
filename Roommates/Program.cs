@@ -36,6 +36,7 @@ namespace Roommates
             Console.WriteLine();
 
             List<Roommate> allRoommates = roommateRepo.GetAll();
+            
 
             foreach(Roommate roommate in allRoommates)
             {
@@ -58,7 +59,16 @@ namespace Roommates
             Roommate singleRoommate = roommateRepo.GetById(2);
 
             Console.WriteLine($"{singleRoommate.Id} {singleRoommate.Firstname} {singleRoommate.Lastname} {singleRoommate.RentPortion} {singleRoommate.MoveInDate}");
+            Console.WriteLine("-------------------------------");
 
+            Console.WriteLine("Getting Roommates within a Specific Room");
+
+            List<Roommate> roommatesWithRoom = roommateRepo.GetAllWithRoom(3);
+            foreach (Roommate roommate in roommatesWithRoom)
+            {
+                Console.WriteLine($"{roommate.Id} {roommate.Firstname} {roommate.Lastname} lives in the {roommate.Room.Name}, pays ${roommate.RentPortion}, and moved in on {roommate.MoveInDate}");
+            }
+            Console.WriteLine("-------------------------------");
             /////////////////////////////////////////
             /* Generates a new room and adds it to the database
             Room bathroom = new Room

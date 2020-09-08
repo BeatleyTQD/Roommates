@@ -60,14 +60,44 @@ namespace Roommates.Repositories
 
         }
 
-        public Roommate GetAllWithRoom()
+        public List<Roommate> GetAllWithRoom(int roomId)
         {
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
+                    cmd.CommandText = "SELECT rm.Id, rm.FirstName, rm.LastName, rm.RentPortion, rm.MoveInDate, r.Name AS RoomName, r.MaxOccupancy FROM Roommate rm JOIN Room r ON rm.RoomId = r.id WHERE r.id = @id";
+                    cmd.Parameters.AddWithValue("@id", roomId);
+                    SqlDataReader reader = cmd.ExecuteReader();
 
+                    List<Roommate> roommatesWithRoom = new List<Roommate>();
+
+                    Roommate roommate = null;
+
+                    while (reader.Read())
+                    {
+                    
+                        roommate = new Roommate
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Firstname = reader.GetString(reader.GetOrdinal("Firstname")),
+                            Lastname = reader.GetString(reader.GetOrdinal("Lastname")),
+                            RentPortion = reader.GetInt32(reader.GetOrdinal("RentPortion")),
+                            MoveInDate = reader.GetDateTime(reader.GetOrdinal("MoveInDate")),
+                            Room = new Room()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Name = reader.GetString(reader.GetOrdinal("RoomName")),
+                                MaxOccupancy = reader.GetInt32(reader.GetOrdinal("MaxOccupancy"))
+                            }
+                        };
+
+                        roommatesWithRoom.Add(roommate);
+                    }
+                    reader.Close();
+
+                    return roommatesWithRoom;
                 }
             }
         }
@@ -100,6 +130,18 @@ namespace Roommates.Repositories
                     reader.Close();
 
                     return roommate;
+                }
+            }
+        }
+
+        public void Insert(Roommate roommate)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    
                 }
             }
         }
