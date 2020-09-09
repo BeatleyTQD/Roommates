@@ -15,11 +15,11 @@ namespace Roommates
 
         static void Main(string[] args)
         {
-            /* Selects all Rooms and displays them to the console
+            //Selects all Rooms and displays them to the console
             RoomRepository roomRepo = new RoomRepository(CONNECTION_STRING);
 
             Console.WriteLine("Getting All Rooms:");
-            Console.WriteLine();
+            Console.WriteLine(); 
 
             List<Room> allRooms = roomRepo.GetAll();
 
@@ -28,7 +28,7 @@ namespace Roommates
                 Console.WriteLine($"{room.Id} {room.Name} {room.MaxOccupancy}");
             }
             Console.WriteLine("--------------------------");
-            */
+            
 
             RoommateRepository roommateRepo = new RoommateRepository(CONNECTION_STRING);
 
@@ -84,6 +84,20 @@ namespace Roommates
             */
 
 
+            /*
+            Roommate Kevin = new Roommate
+            {
+                Firstname = "Kevin",
+                Lastname = "Schmidt",
+                RentPortion = 75,
+                MoveInDate = new DateTime(2015, 12, 31),
+                Room = allRooms[1]
+            };
+
+            roommateRepo.Insert(Kevin);
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine($"Added a new roommate, please welcome {Kevin.Id} {Kevin.Firstname} {Kevin.Lastname}");
+            */
 
             /////////////////////////////////////////
             /* Updates an entry in the database
@@ -96,7 +110,12 @@ namespace Roommates
             }
             */
 
-
+            /*
+            Kevin.RentPortion = 500;
+            roommateRepo.Update(Kevin);
+            Console.WriteLine($"{Kevin.Firstname}'s new rent payment is ${Kevin.RentPortion}");
+            Console.WriteLine("-------------------------------");
+            */
 
             /////////////////////////////////////////
             /* Deletes a room entry from the database
@@ -108,6 +127,7 @@ namespace Roommates
             {
                 Console.WriteLine($"{room.Id} {room.Name} {room.MaxOccupancy}");
             }*/
+
 
         }
     }
